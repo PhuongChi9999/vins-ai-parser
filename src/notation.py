@@ -1,0 +1,50 @@
+import re
+from typing import Literal, Optional
+
+from bs4 import BeautifulSoup
+
+
+def find_score(
+    soup: BeautifulSoup, evaluator: Literal["Robinson", "Parker", "Suckling"]
+) -> Optional[float]:
+    critic_blocks = soup.find_all("div", attrs={"data-rbf": "wine-critic-slide"})
+    if not critic_blocks:
+        return None
+
+    for critic_block in critic_blocks:
+        spans = critic_block.find_all("span")
+        if len(spans) < 2:
+            continue
+
+        name = spans[0].text.strip()
+        if evaluator.lower() in name.lower():
+            score_with_grade = spans[1].text.strip()
+
+            # Delete + symbol and grating scale
+            score_row = re.split(r"/|\+", score_with_grade)
+            main_score = score_row[0]
+
+            # If we have a range score, then we take the average
+            if "-" in main_score:
+                start, end = map(float, main_score.split("-"))
+                return (start + end) / 2
+
+            # Otherwise, we convert the score to float
+            try:
+                return float(main_score)
+            except ValueError:
+                return None
+
+    return None
+
+
+def parker(soup: BeautifulSoup) -> Optional[float]:
+    return find_score(soup, "Parker")
+
+
+def robinson(soup: BeautifulSoup) -> Optional[float]:
+    return find_score(soup, "Robinson")
+
+
+def suckling(soup: BeautifulSoup) -> Optional[float]:
+    return find_score(soup, "Suckling")
