@@ -1,12 +1,7 @@
 import re
-from typing import Literal, Optional
-
-from bs4 import BeautifulSoup
 
 
-def find_score(
-    soup: BeautifulSoup, evaluator: Literal["Robinson", "Parker", "Suckling"]
-) -> Optional[float]:
+def find_score(soup, evaluator):
     critic_blocks = soup.find_all("div", attrs={"data-rbf": "wine-critic-slide"})
     if not critic_blocks:
         return None
@@ -38,13 +33,13 @@ def find_score(
     return None
 
 
-def parker(soup: BeautifulSoup) -> Optional[float]:
+def parker(soup):
     return find_score(soup, "Parker")
 
 
-def robinson(soup: BeautifulSoup) -> Optional[float]:
+def robinson(soup):
     return find_score(soup, "Robinson")
 
 
-def suckling(soup: BeautifulSoup) -> Optional[float]:
+def suckling(soup):
     return find_score(soup, "Suckling")

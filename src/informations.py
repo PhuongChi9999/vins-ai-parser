@@ -1,11 +1,9 @@
-from bs4 import BeautifulSoup
-
 from src.appellation import appellation
 from src.notation import parker, robinson, suckling
 from src.prix import prix
 
 
-def informations(soup: BeautifulSoup) -> str:
+def informations(soup):
     appellation_res = appellation(soup)
     parker_res = parker(soup)
     robinson_res = robinson(soup)

@@ -1,10 +1,7 @@
 import json
-from typing import Optional
-
-from bs4 import BeautifulSoup
 
 
-def appellation(soup: BeautifulSoup) -> Optional[str]:
+def appellation(soup):
     script = soup.find("script", {"id": "__NEXT_DATA__"})
     if not script or not script.string:
         return None

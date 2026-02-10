@@ -1,5 +1,3 @@
-from typing import Optional
-
 import requests
 from bs4 import BeautifulSoup
 
@@ -9,7 +7,7 @@ from src.informations import informations
 CSV_PATH = "vins.csv"
 
 
-def getsoup(url: str) -> Optional[BeautifulSoup]:
+def getsoup(url):
     try:
         response = requests.get(url)
         response.raise_for_status()
