@@ -21,7 +21,17 @@ def find_score(soup, evaluator):
 
             # If we have a range score, then we take the average
             if "-" in main_score:
-                start, end = map(float, main_score.split("-"))
+                print("main_score=" + main_score)
+                prx = main_score.split("-", 2)
+                start=0
+                if(prx[0] != ''):
+                    start=float(prx[0])
+                
+                end=start
+                if(prx[1] != ''):
+                    start=float(prx[1])
+                    
+                #start, end = map(float, main_score.split("-"))
                 return (start + end) / 2
 
             # Otherwise, we convert the score to float
@@ -32,9 +42,11 @@ def find_score(soup, evaluator):
 
     return None
 
-
 def parker(soup):
     return find_score(soup, "Parker")
+
+def robert(soup):
+    return find_score(soup, "Robert")
 
 
 def robinson(soup):
