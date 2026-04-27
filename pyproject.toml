@@ -1,0 +1,16 @@
+[project]
+name = "project-ai"
+version = "0.1.0"
+description = "Projet S6 - prédiction du prix des vins"
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+    "beautifulsoup4",
+    "requests",
+    "pandas",
+    "numpy",
+    "matplotlib",
+    "scikit-learn",
+    "pytest",
+]
